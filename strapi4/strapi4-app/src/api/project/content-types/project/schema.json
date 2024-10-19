@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects",
+  "info": {
+    "singularName": "project",
+    "pluralName": "projects",
+    "displayName": "Project",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "regex": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "unique": true,
+      "required": true
+    },
+    "stage": {
+      "type": "enumeration",
+      "enum": [
+        "planning",
+        "construction",
+        "operational"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "solar",
+        "wind",
+        "bess",
+        "gas"
+      ],
+      "required": true
+    },
+    "state": {
+      "type": "enumeration",
+      "enum": [
+        "NSW",
+        "QLD",
+        "VIC",
+        "SA",
+        "WA"
+      ],
+      "required": true
+    },
+    "capacity": {
+      "type": "float",
+      "required": true
+    },
+    "avgHomesPoweredPerYear": {
+      "type": "float"
+    },
+    "total": {
+      "type": "integer",
+      "required": true
+    },
+    "about": {
+      "type": "customField",
+      "options": {
+        "output": "Markdown",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor",
+      "required": true
+    },
+    "gallery": {
+      "type": "component",
+      "repeatable": true,
+      "component": "arrays.gallery"
+    }
+  }
+}

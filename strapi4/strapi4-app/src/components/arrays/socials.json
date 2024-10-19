@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_arrays_socials",
+  "info": {
+    "displayName": "socials",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string",
+      "regex": "^https:\\/\\/(?:www\\.)?(twitter|facebook|linkedin|instagram)\\.com\\/(?:(in|company)\\/)?([a-zA-Z0-9_\\-]+)\\/?$",
+      "required": true,
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "LinkedIn",
+        "Facebook",
+        "Twitter",
+        "Instagram"
+      ],
+      "required": true,
+      "default": "LinkedIn"
+    }
+  }
+}

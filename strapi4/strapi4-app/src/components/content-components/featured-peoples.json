@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_content_components_featured_peoples",
+  "info": {
+    "displayName": "featuredPeoples",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "enumeration",
+      "enum": [
+        "leadership-team",
+        "board-of-directors"
+      ],
+      "required": true
+    },
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    }
+  }
+}

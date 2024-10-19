@@ -1,0 +1,95 @@
+{
+  "collectionName": "components_common_fields_section-settings",
+  "info": {
+    "displayName": "sectionSettings",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "centreText": {
+      "type": "boolean"
+    },
+    "largeHeading": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "customField",
+      "options": {
+        "output": "Markdown",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
+    },
+    "paddingTop": {
+      "type": "enumeration",
+      "enum": [
+        "pt-0",
+        "pt-2",
+        "pt-4",
+        "pt-6",
+        "pt-8",
+        "pt-10",
+        "pt-12",
+        "pt-16",
+        "pt-20",
+        "pt-24"
+      ]
+    },
+    "paddingBottom": {
+      "type": "enumeration",
+      "enum": [
+        "pb-0",
+        "pb-2",
+        "pb-4",
+        "pb-6",
+        "pb-8",
+        "pb-10",
+        "pb-12",
+        "pb-16",
+        "pb-20",
+        "pb-24"
+      ]
+    },
+    "htmlId": {
+      "type": "string"
+    },
+    "bgColour": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::colour.colour"
+    },
+    "marginTop": {
+      "type": "enumeration",
+      "enum": [
+        "mt-0",
+        "mt-2",
+        "mt-4",
+        "mt-6",
+        "mt-8",
+        "mt-10",
+        "mt-12",
+        "mt-16",
+        "mt-20",
+        "mt-24"
+      ]
+    },
+    "marginBottom": {
+      "type": "enumeration",
+      "enum": [
+        "mb-0",
+        "mb-2",
+        "mb-4",
+        "mb-6",
+        "mb-8",
+        "mb-10",
+        "mb-12",
+        "mb-16",
+        "mb-20",
+        "mb-24"
+      ]
+    }
+  }
+}

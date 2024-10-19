@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_arrays_columns",
+  "info": {
+    "displayName": "columns"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

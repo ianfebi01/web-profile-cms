@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_content_components_arbitraries",
+  "info": {
+    "displayName": "arbitrary",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    },
+    "arbitrary": {
+      "type": "json"
+    },
+    "identifier": {
+      "type": "string",
+      "regex": "^[a-z|0-9|-]+$",
+      "required": true
+    }
+  }
+}

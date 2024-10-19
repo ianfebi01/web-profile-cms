@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_content_components_featured_news",
+  "info": {
+    "displayName": "featuredNews"
+  },
+  "options": {},
+  "attributes": {
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::news-article.news-article"
+    },
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "collectionName": "components_content_components_text_left_image_rights",
+  "info": {
+    "displayName": "textLeftImageRight",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "fullWidthBgImage": {
+      "type": "boolean",
+      "default": false
+    },
+    "reverse": {
+      "type": "boolean",
+      "default": false
+    },
+    "fullWidth": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "arrays.button"
+    },
+    "bodyCopy": {
+      "type": "customField",
+      "options": {
+        "output": "Markdown",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
+    },
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    },
+    "biggerColumn": {
+      "type": "enumeration",
+      "enum": [
+        "image",
+        "content"
+      ]
+    }
+  }
+}

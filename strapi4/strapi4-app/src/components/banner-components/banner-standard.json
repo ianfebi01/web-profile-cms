@@ -1,0 +1,64 @@
+{
+  "collectionName": "components_banner_components_banner_standards",
+  "info": {
+    "displayName": "bannerStandard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "subHeading": {
+      "type": "string"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "watermarkLeft": {
+      "type": "enumeration",
+      "enum": [
+        "triangle",
+        "octagon"
+      ]
+    },
+    "watermarkRight": {
+      "type": "enumeration",
+      "enum": [
+        "triangle",
+        "circle",
+        "infinity",
+        "octagon"
+      ]
+    },
+    "watermarkLeftOverflow": {
+      "type": "boolean",
+      "default": false
+    },
+    "watermarkRightOverflow": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "text"
+    },
+    "links": {
+      "displayName": "links",
+      "type": "component",
+      "repeatable": true,
+      "component": "arrays.links"
+    },
+    "backgroundVideo": {
+      "allowedTypes": [
+        "videos"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

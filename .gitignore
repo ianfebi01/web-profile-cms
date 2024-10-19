@@ -1,0 +1,11 @@
+.env
+*.env
+nginx/certs
+.DS_Store
+*.bkp
+*.dtmp
+*.bak
+strapi4/strapi4-app/public
+media
+*.sql
+node_modules

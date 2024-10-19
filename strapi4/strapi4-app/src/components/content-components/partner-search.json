@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_content_components_partner_searches",
+  "info": {
+    "displayName": "partnerSearch"
+  },
+  "options": {},
+  "attributes": {
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    }
+  }
+}

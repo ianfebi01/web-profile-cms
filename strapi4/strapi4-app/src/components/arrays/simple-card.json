@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_arrays_simple_cards",
+  "info": {
+    "displayName": "SimpleCard"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "bigTitleSize": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

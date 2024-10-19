@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_content_components_accordians",
+  "info": {
+    "displayName": "accordian"
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "arrays.items"
+    },
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    }
+  }
+}

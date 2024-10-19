@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_nav_categories_nav_categories",
+  "info": {
+    "displayName": "Nav Categories",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "navItems": {
+      "displayName": "Nav Items",
+      "type": "component",
+      "repeatable": true,
+      "component": "nav-items.nav-items"
+    },
+    "categoryName": {
+      "type": "string"
+    }
+  }
+}

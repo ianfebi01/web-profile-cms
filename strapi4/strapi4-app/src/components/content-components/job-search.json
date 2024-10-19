@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_content_components_job_searches",
+  "info": {
+    "displayName": "jobSearch"
+  },
+  "options": {},
+  "attributes": {
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    }
+  }
+}

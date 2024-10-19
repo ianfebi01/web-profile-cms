@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_content_components_simple_cards",
+  "info": {
+    "displayName": "SimpleCards"
+  },
+  "options": {},
+  "attributes": {
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "arrays.simple-card",
+      "required": true
+    },
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    }
+  }
+}

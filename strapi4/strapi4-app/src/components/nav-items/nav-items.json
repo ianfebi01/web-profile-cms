@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_nav_items_nav_items",
+  "info": {
+    "displayName": "Nav Items",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    },
+    "url": {
+      "type": "string"
+    },
+    "pageAnchor": {
+      "type": "string",
+      "regex": "^[a-z|0-9|\\-|\\_]+$",
+      "unique": false
+    },
+    "description": {
+      "type": "text"
+    },
+    "newTab": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

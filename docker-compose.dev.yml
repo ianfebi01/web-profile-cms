@@ -1,0 +1,51 @@
+services:
+  strapi:
+    user: strapi4:strapi4
+    command: ["yarn", "--cache-folder", "/opt/app", "develop"]
+    ports:
+      - 1337:1337
+    volumes:
+      - ./strapi4/strapi4-app/config:/opt/app/config
+      - ./strapi4/strapi4-app/src:/opt/app/src
+      - ./strapi4/strapi4-app/public:/opt/app/public
+      - ./strapi4/strapi4-app/types:/opt/app/types
+      # - ./strapi4/strapi4-app/yarn.lock:/opt/app/yarn.lock
+    environment:
+      NODE_OPTIONS: --max_old_space_size=4096
+      AWS_ACCESS_KEY_ID: null
+      AWS_ACCESS_SECRET: null
+      AWS_REGION: null
+      AWS_BUCKET_NAME: null
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+      MEILI_URL: ${MEILI_URL}
+      SERVER_NAME: ${SERVER_NAME}
+    depends_on:
+      - strapi_db
+    networks:
+      - cms_int
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
+
+  # disable
+  # auth:
+  #   deploy:
+  #     replicas: 0
+
+  # auth_redis:
+  #   deploy:
+  #     replicas: 0
+
+  nginx:
+    deploy:
+      replicas: 0
+
+volumes:
+  cms_db_data:
+
+networks:
+  cms_int:
+    driver: bridge
