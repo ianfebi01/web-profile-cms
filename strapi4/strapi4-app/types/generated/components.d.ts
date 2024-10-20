@@ -51,6 +51,18 @@ export interface SharedMetaSocial extends Schema.Component {
   };
 }
 
+export interface NavCategoriesNavCategories extends Schema.Component {
+  collectionName: 'components_nav_categories_nav_categories';
+  info: {
+    displayName: 'Nav Categories';
+    description: '';
+  };
+  attributes: {
+    navItems: Attribute.Component<'nav-items.nav-items', true>;
+    categoryName: Attribute.String;
+  };
+}
+
 export interface NavItemsNavItems extends Schema.Component {
   collectionName: 'components_nav_items_nav_items';
   info: {
@@ -68,18 +80,6 @@ export interface NavItemsNavItems extends Schema.Component {
     pageAnchor: Attribute.String;
     description: Attribute.Text;
     newTab: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
-export interface NavCategoriesNavCategories extends Schema.Component {
-  collectionName: 'components_nav_categories_nav_categories';
-  info: {
-    displayName: 'Nav Categories';
-    description: '';
-  };
-  attributes: {
-    navItems: Attribute.Component<'nav-items.nav-items', true>;
-    categoryName: Attribute.String;
   };
 }
 
@@ -525,8 +525,8 @@ declare module '@strapi/types' {
     export interface Components {
       'shared.seo': SharedSeo;
       'shared.meta-social': SharedMetaSocial;
-      'nav-items.nav-items': NavItemsNavItems;
       'nav-categories.nav-categories': NavCategoriesNavCategories;
+      'nav-items.nav-items': NavItemsNavItems;
       'content-components.text-left-image-right': ContentComponentsTextLeftImageRight;
       'content-components.small-banner': ContentComponentsSmallBanner;
       'content-components.simple-cards': ContentComponentsSimpleCards;

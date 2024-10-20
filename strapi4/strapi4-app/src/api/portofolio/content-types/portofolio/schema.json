@@ -48,6 +48,14 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::skill.skill"
+    },
+    "description": {
+      "type": "customField",
+      "options": {
+        "output": "Markdown",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }

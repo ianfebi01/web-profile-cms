@@ -949,6 +949,14 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
       'oneToMany',
       'api::skill.skill'
     >;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
