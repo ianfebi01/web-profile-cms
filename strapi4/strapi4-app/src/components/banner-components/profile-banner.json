@@ -1,7 +1,8 @@
 {
   "collectionName": "components_banner_components_profile_banners",
   "info": {
-    "displayName": "profileBanner"
+    "displayName": "profileBanner",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -18,17 +19,25 @@
       "customField": "plugin::ckeditor.CKEditor"
     },
     "bannerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "socials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::social.social"
+    },
+    "avatar": {
       "allowedTypes": [
         "images"
       ],
       "type": "media",
       "multiple": false,
       "required": true
-    },
-    "socials": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::social.social"
     }
   }
 }

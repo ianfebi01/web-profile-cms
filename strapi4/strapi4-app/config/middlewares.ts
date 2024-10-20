@@ -9,24 +9,15 @@ export default ( { env } ) => {
     {
       name: 'strapi::security',
       config: {
-        // Also see the NGINX config for the CSP header
         contentSecurityPolicy: {
           useDefaults: true,
           directives: {
-            'img-src': ["'self'",
-              'data:',
-              'blob:',
-              'dl.airtable.com',
-              'https:',
-              `${AWS_S3_URL}`,
-            ],
-            'media-src': ["'self'",
-              `${AWS_S3_URL}`,
-            ],
-            'connect-src': ["'self'"],
-            'script-src': ["'self'"],
+            'connect-src': ["'self'", 'https:'],
+            'img-src': ["'self'", 'data:', 'blob:', 'res.cloudinary.com'],
+            'media-src': ["'self'", 'data:', 'blob:', 'res.cloudinary.com'],
+            upgradeInsecureRequests: null,
           },
-        }
+        },
       },
     },
     'strapi::cors',
@@ -36,5 +27,5 @@ export default ( { env } ) => {
     'strapi::session',
     'strapi::favicon',
     'strapi::public',
-  ]; 
+  ];
 }
