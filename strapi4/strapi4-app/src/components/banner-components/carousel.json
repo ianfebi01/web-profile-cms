@@ -4,11 +4,5 @@
     "displayName": "carousel"
   },
   "options": {},
-  "attributes": {
-    "people": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::team.team"
-    }
-  }
+  "attributes": {}
 }

@@ -134,6 +134,18 @@ export interface ContentComponentsSimpleCards extends Schema.Component {
   };
 }
 
+export interface ContentComponentsQuote extends Schema.Component {
+  collectionName: 'components_content_components_quotes';
+  info: {
+    displayName: 'quote';
+    description: '';
+  };
+  attributes: {
+    quote: Attribute.Text & Attribute.Required;
+    sectionSettings: Attribute.Component<'common-fields.section-settings'>;
+  };
+}
+
 export interface ContentComponentsPartnerSearch extends Schema.Component {
   collectionName: 'components_content_components_partner_searches';
   info: {
@@ -167,6 +179,16 @@ export interface ContentComponentsJobSearch extends Schema.Component {
   };
 }
 
+export interface ContentComponentsFeaturedPortofolios extends Schema.Component {
+  collectionName: 'components_content_components_featured_portofolios';
+  info: {
+    displayName: 'featuredPortofolios';
+  };
+  attributes: {
+    sectionSettings: Attribute.Component<'common-fields.section-settings'>;
+  };
+}
+
 export interface ContentComponentsFeaturedPeoples extends Schema.Component {
   collectionName: 'components_content_components_featured_peoples';
   info: {
@@ -186,11 +208,6 @@ export interface ContentComponentsFeaturedNews extends Schema.Component {
     displayName: 'featuredNews';
   };
   attributes: {
-    articles: Attribute.Relation<
-      'content-components.featured-news',
-      'oneToMany',
-      'api::news-article.news-article'
-    >;
     sectionSettings: Attribute.Component<'common-fields.section-settings'>;
   };
 }
@@ -331,18 +348,36 @@ export interface CommonFieldsSectionSettings extends Schema.Component {
   };
 }
 
+export interface BannerComponentsProfileBanner extends Schema.Component {
+  collectionName: 'components_banner_components_profile_banners';
+  info: {
+    displayName: 'profileBanner';
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    bio: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
+    bannerImage: Attribute.Media<'images'> & Attribute.Required;
+    socials: Attribute.Relation<
+      'banner-components.profile-banner',
+      'oneToMany',
+      'api::social.social'
+    >;
+  };
+}
+
 export interface BannerComponentsCarousel extends Schema.Component {
   collectionName: 'components_banner_components_carousels';
   info: {
     displayName: 'carousel';
   };
-  attributes: {
-    people: Attribute.Relation<
-      'banner-components.carousel',
-      'oneToMany',
-      'api::team.team'
-    >;
-  };
+  attributes: {};
 }
 
 export interface BannerComponentsBannerStandard extends Schema.Component {
@@ -378,10 +413,9 @@ export interface ArraysSocials extends Schema.Component {
       Attribute.Required &
       Attribute.SetMinMaxLength<{
         minLength: 1;
-        maxLength: 50;
       }>;
     platform: Attribute.Enumeration<
-      ['LinkedIn', 'Facebook', 'Twitter', 'Instagram']
+      ['LinkedIn', 'Facebook', 'Twitter', 'Instagram', 'Email']
     > &
       Attribute.Required &
       Attribute.DefaultTo<'LinkedIn'>;
@@ -422,6 +456,24 @@ export interface ArraysItems extends Schema.Component {
     heading: Attribute.String & Attribute.Required;
     content: Attribute.RichText &
       Attribute.Required &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
+  };
+}
+
+export interface ArraysImageGalery extends Schema.Component {
+  collectionName: 'components_arrays_image_galeries';
+  info: {
+    displayName: 'imageGalery';
+  };
+  attributes: {
+    media: Attribute.Media<'images' | 'videos'> & Attribute.Required;
+    caption: Attribute.RichText &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
         {
@@ -478,9 +530,11 @@ declare module '@strapi/types' {
       'content-components.text-left-image-right': ContentComponentsTextLeftImageRight;
       'content-components.small-banner': ContentComponentsSmallBanner;
       'content-components.simple-cards': ContentComponentsSimpleCards;
+      'content-components.quote': ContentComponentsQuote;
       'content-components.partner-search': ContentComponentsPartnerSearch;
       'content-components.news-search': ContentComponentsNewsSearch;
       'content-components.job-search': ContentComponentsJobSearch;
+      'content-components.featured-portofolios': ContentComponentsFeaturedPortofolios;
       'content-components.featured-peoples': ContentComponentsFeaturedPeoples;
       'content-components.featured-news': ContentComponentsFeaturedNews;
       'content-components.divider': ContentComponentsDivider;
@@ -488,12 +542,14 @@ declare module '@strapi/types' {
       'content-components.arbitrary': ContentComponentsArbitrary;
       'content-components.accordian': ContentComponentsAccordian;
       'common-fields.section-settings': CommonFieldsSectionSettings;
+      'banner-components.profile-banner': BannerComponentsProfileBanner;
       'banner-components.carousel': BannerComponentsCarousel;
       'banner-components.banner-standard': BannerComponentsBannerStandard;
       'arrays.socials': ArraysSocials;
       'arrays.simple-card': ArraysSimpleCard;
       'arrays.links': ArraysLinks;
       'arrays.items': ArraysItems;
+      'arrays.image-galery': ArraysImageGalery;
       'arrays.gallery': ArraysGallery;
       'arrays.columns': ArraysColumns;
       'arrays.button': ArraysButton;

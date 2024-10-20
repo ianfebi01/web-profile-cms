@@ -1,10 +1,15 @@
 {
-  "collectionName": "components_content_components_featured_news",
+  "collectionName": "components_content_components_quotes",
   "info": {
-    "displayName": "featuredNews"
+    "displayName": "quote",
+    "description": ""
   },
   "options": {},
   "attributes": {
+    "quote": {
+      "type": "text",
+      "required": true
+    },
     "sectionSettings": {
       "type": "component",
       "repeatable": false,

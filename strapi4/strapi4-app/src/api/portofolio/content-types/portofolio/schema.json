@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "portofolios",
+  "info": {
+    "singularName": "portofolio",
+    "pluralName": "portofolios",
+    "displayName": "Portofolio",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "regex": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "year": {
+      "type": "integer",
+      "required": true,
+      "min": 2000,
+      "max": 2100,
+      "default": 2024
+    },
+    "featureImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "galery": {
+      "type": "component",
+      "repeatable": true,
+      "component": "arrays.image-galery"
+    },
+    "url": {
+      "type": "string"
+    },
+    "skills": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::skill.skill"
+    }
+  }
+}

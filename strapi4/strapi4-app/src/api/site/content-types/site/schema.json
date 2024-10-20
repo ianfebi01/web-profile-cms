@@ -48,11 +48,6 @@
       "type": "component",
       "repeatable": true,
       "component": "nav-categories.nav-categories"
-    },
-    "articles": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::news-article.news-article"
     }
   }
 }

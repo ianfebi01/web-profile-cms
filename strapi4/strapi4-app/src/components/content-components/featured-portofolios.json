@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_content_components_featured_news",
+  "collectionName": "components_content_components_featured_portofolios",
   "info": {
-    "displayName": "featuredNews"
+    "displayName": "featuredPortofolios"
   },
   "options": {},
   "attributes": {

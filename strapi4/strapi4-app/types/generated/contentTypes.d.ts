@@ -822,113 +822,6 @@ export interface ApiColourColour extends Schema.CollectionType {
   };
 }
 
-export interface ApiDocumentDocument extends Schema.CollectionType {
-  collectionName: 'documents';
-  info: {
-    singularName: 'document';
-    pluralName: 'documents';
-    displayName: 'Document';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String & Attribute.Required & Attribute.Unique;
-    document: Attribute.Media<'files'> & Attribute.Required;
-    description: Attribute.Text;
-    featureImage: Attribute.Media<'images'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::document.document',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::document.document',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiJobJob extends Schema.CollectionType {
-  collectionName: 'jobs';
-  info: {
-    singularName: 'job';
-    pluralName: 'jobs';
-    displayName: 'Job';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String & Attribute.Required;
-    description: Attribute.Text & Attribute.Required;
-    button: Attribute.Component<'arrays.button'> & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::job.job', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::job.job', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiNewsArticleNewsArticle extends Schema.CollectionType {
-  collectionName: 'news_articles';
-  info: {
-    singularName: 'news-article';
-    pluralName: 'news-articles';
-    displayName: 'Article';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String & Attribute.Required;
-    slug: Attribute.String & Attribute.Required & Attribute.Unique;
-    date: Attribute.Date;
-    featureImage: Attribute.Media<'images'>;
-    tags: Attribute.Relation<
-      'api::news-article.news-article',
-      'manyToMany',
-      'api::tag.tag'
-    >;
-    seo: Attribute.Component<'shared.seo'>;
-    content: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor.CKEditor',
-        {
-          output: 'Markdown';
-          preset: 'standard';
-        }
-      >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::news-article.news-article',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::news-article.news-article',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiPagePage extends Schema.CollectionType {
   collectionName: 'pages';
   info: {
@@ -940,12 +833,39 @@ export interface ApiPagePage extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    title: Attribute.String & Attribute.Required;
-    slug: Attribute.String & Attribute.Required & Attribute.Unique;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     banner: Attribute.DynamicZone<
-      ['banner-components.banner-standard', 'banner-components.carousel']
+      [
+        'banner-components.banner-standard',
+        'banner-components.carousel',
+        'banner-components.profile-banner'
+      ]
     > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
       Attribute.SetMinMax<
         {
           max: 1;
@@ -965,10 +885,22 @@ export interface ApiPagePage extends Schema.CollectionType {
         'content-components.divider',
         'content-components.partner-search',
         'content-components.accordian',
-        'content-components.featured-news'
+        'content-components.featured-news',
+        'content-components.quote',
+        'content-components.featured-portofolios'
       ]
-    >;
-    seo: Attribute.Component<'shared.seo'>;
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -976,54 +908,21 @@ export interface ApiPagePage extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::page.page', 'oneToOne', 'admin::user'> &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::page.page',
+      'oneToMany',
+      'api::page.page'
+    >;
+    locale: Attribute.String;
   };
 }
 
-export interface ApiPartnerPartner extends Schema.CollectionType {
-  collectionName: 'partners';
+export interface ApiPortofolioPortofolio extends Schema.CollectionType {
+  collectionName: 'portofolios';
   info: {
-    singularName: 'partner';
-    pluralName: 'partners';
-    displayName: 'Partner';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    featureImage: Attribute.Media<'images'>;
-    description: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor.CKEditor',
-        {
-          output: 'Markdown';
-          preset: 'standard';
-        }
-      >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::partner.partner',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::partner.partner',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiProjectProject extends Schema.CollectionType {
-  collectionName: 'projects';
-  info: {
-    singularName: 'project';
-    pluralName: 'projects';
-    displayName: 'Project';
+    singularName: 'portofolio';
+    pluralName: 'portofolios';
+    displayName: 'Portofolio';
     description: '';
   };
   options: {
@@ -1031,17 +930,57 @@ export interface ApiProjectProject extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String & Attribute.Required;
-    slug: Attribute.String & Attribute.Required & Attribute.Unique;
-    stage: Attribute.Enumeration<['planning', 'construction', 'operational']>;
-    type: Attribute.Enumeration<['solar', 'wind', 'bess', 'gas']> &
-      Attribute.Required;
-    state: Attribute.Enumeration<['NSW', 'QLD', 'VIC', 'SA', 'WA']> &
-      Attribute.Required;
-    capacity: Attribute.Float & Attribute.Required;
-    avgHomesPoweredPerYear: Attribute.Float;
-    total: Attribute.Integer & Attribute.Required;
-    about: Attribute.RichText &
+    slug: Attribute.String & Attribute.Required;
+    year: Attribute.Integer &
       Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 2000;
+          max: 2100;
+        },
+        number
+      > &
+      Attribute.DefaultTo<2024>;
+    featureImage: Attribute.Media<'images'> & Attribute.Required;
+    galery: Attribute.Component<'arrays.image-galery', true>;
+    url: Attribute.String;
+    skills: Attribute.Relation<
+      'api::portofolio.portofolio',
+      'oneToMany',
+      'api::skill.skill'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::portofolio.portofolio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::portofolio.portofolio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProfileProfile extends Schema.SingleType {
+  collectionName: 'profiles';
+  info: {
+    singularName: 'profile';
+    pluralName: 'profiles';
+    displayName: 'Profile';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    bio: Attribute.RichText &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
         {
@@ -1049,18 +988,23 @@ export interface ApiProjectProject extends Schema.CollectionType {
           preset: 'standard';
         }
       >;
-    gallery: Attribute.Component<'arrays.gallery', true>;
+    bannerImage: Attribute.Media<'images'> & Attribute.Required;
+    socials: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::social.social'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::project.project',
+      'api::profile.profile',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::project.project',
+      'api::profile.profile',
       'oneToOne',
       'admin::user'
     > &
@@ -1087,11 +1031,6 @@ export interface ApiSiteSite extends Schema.SingleType {
     socials: Attribute.Component<'arrays.socials', true>;
     mainNavMenu: Attribute.Component<'nav-categories.nav-categories', true>;
     footerNavMenu: Attribute.Component<'nav-categories.nav-categories', true>;
-    articles: Attribute.Relation<
-      'api::site.site',
-      'oneToMany',
-      'api::news-article.news-article'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1102,63 +1041,72 @@ export interface ApiSiteSite extends Schema.SingleType {
   };
 }
 
-export interface ApiTagTag extends Schema.CollectionType {
-  collectionName: 'tags';
+export interface ApiSkillSkill extends Schema.CollectionType {
+  collectionName: 'skills';
   info: {
-    singularName: 'tag';
-    pluralName: 'tags';
-    displayName: 'Tag';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    title: Attribute.String;
-    slug: Attribute.String & Attribute.Required & Attribute.Unique;
-    articles: Attribute.Relation<
-      'api::tag.tag',
-      'manyToMany',
-      'api::news-article.news-article'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTeamTeam extends Schema.CollectionType {
-  collectionName: 'teams';
-  info: {
-    singularName: 'team';
-    pluralName: 'teams';
-    displayName: 'People';
+    singularName: 'skill';
+    pluralName: 'skills';
+    displayName: 'Skill';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String & Attribute.Required;
-    position: Attribute.String & Attribute.Required;
-    bio: Attribute.Text;
-    picture: Attribute.Media<'images'> & Attribute.Required;
-    socials: Attribute.Component<'arrays.socials', true> &
-      Attribute.SetMinMax<
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
         {
-          max: 4;
-        },
-        number
+          output: 'Markdown';
+          preset: 'standard';
+        }
       >;
-    title: Attribute.String & Attribute.Required;
+    image: Attribute.Media<'images'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::team.team', 'oneToOne', 'admin::user'> &
+    createdBy: Attribute.Relation<
+      'api::skill.skill',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
-    updatedBy: Attribute.Relation<'api::team.team', 'oneToOne', 'admin::user'> &
+    updatedBy: Attribute.Relation<
+      'api::skill.skill',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSocialSocial extends Schema.CollectionType {
+  collectionName: 'socials';
+  info: {
+    singularName: 'social';
+    pluralName: 'socials';
+    displayName: 'Social';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    social: Attribute.Component<'arrays.socials'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::social.social',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::social.social',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -1182,15 +1130,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::colour.colour': ApiColourColour;
-      'api::document.document': ApiDocumentDocument;
-      'api::job.job': ApiJobJob;
-      'api::news-article.news-article': ApiNewsArticleNewsArticle;
       'api::page.page': ApiPagePage;
-      'api::partner.partner': ApiPartnerPartner;
-      'api::project.project': ApiProjectProject;
+      'api::portofolio.portofolio': ApiPortofolioPortofolio;
+      'api::profile.profile': ApiProfileProfile;
       'api::site.site': ApiSiteSite;
-      'api::tag.tag': ApiTagTag;
-      'api::team.team': ApiTeamTeam;
+      'api::skill.skill': ApiSkillSkill;
+      'api::social.social': ApiSocialSocial;
     }
   }
 }
