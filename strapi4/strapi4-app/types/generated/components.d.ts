@@ -212,6 +212,16 @@ export interface ContentComponentsFeaturedNews extends Schema.Component {
   };
 }
 
+export interface ContentComponentsFeaturedExperiences extends Schema.Component {
+  collectionName: 'components_content_components_featured_experiences';
+  info: {
+    displayName: 'featuredExperiences';
+  };
+  attributes: {
+    sectionSettings: Attribute.Component<'common-fields.section-settings'>;
+  };
+}
+
 export interface ContentComponentsDivider extends Schema.Component {
   collectionName: 'components_content_components_dividers';
   info: {
@@ -539,6 +549,7 @@ declare module '@strapi/types' {
       'content-components.featured-portofolios': ContentComponentsFeaturedPortofolios;
       'content-components.featured-peoples': ContentComponentsFeaturedPeoples;
       'content-components.featured-news': ContentComponentsFeaturedNews;
+      'content-components.featured-experiences': ContentComponentsFeaturedExperiences;
       'content-components.divider': ContentComponentsDivider;
       'content-components.body-copy': ContentComponentsBodyCopy;
       'content-components.arbitrary': ContentComponentsArbitrary;

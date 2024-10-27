@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_content_components_featured_experiences",
+  "info": {
+    "displayName": "featuredExperiences"
+  },
+  "options": {},
+  "attributes": {
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    }
+  }
+}

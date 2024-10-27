@@ -929,7 +929,8 @@ export interface ApiPagePage extends Schema.CollectionType {
         'content-components.accordian',
         'content-components.featured-news',
         'content-components.quote',
-        'content-components.featured-portofolios'
+        'content-components.featured-portofolios',
+        'content-components.featured-experiences'
       ]
     > &
       Attribute.SetPluginOptions<{
