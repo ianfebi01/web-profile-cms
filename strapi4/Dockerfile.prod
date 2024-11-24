@@ -1,8 +1,9 @@
 # Build stage
 FROM node:20-bullseye-slim as builder
 
-# Install dependencies for build
-RUN apt-get update && apt-get install -y --no-install-recommends libvips-dev \
+# Install only required dependencies for the build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libvips-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set working directory and environment variables
@@ -14,14 +15,15 @@ ENV PATH /opt/app/node_modules/.bin:$PATH
 # Copy application files and install dependencies
 COPY strapi4-app /opt/app
 RUN yarn config set network-timeout 600000 -g && \
-    yarn install --force && \
+    yarn install --production=false --force && \
     yarn build
 
 # Runtime stage
 FROM node:20-bullseye-slim
 
-# Install runtime dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends libvips-dev \
+# Install only the runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libvips-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user
@@ -32,8 +34,10 @@ WORKDIR /opt/app
 ENV NODE_ENV=production
 ENV PATH /opt/app/node_modules/.bin:$PATH
 
-# Copy built application and dependencies from builder stage
-COPY --from=builder /opt/app /opt/app
+# Copy only the necessary files from the builder stage
+COPY --from=builder /opt/app/dist /opt/app/dist
+COPY --from=builder /opt/app/node_modules /opt/app/node_modules
+COPY --from=builder /opt/app/package.json /opt/app/package.json
 
 # Ensure permissions are correct
 RUN chown -R strapi4:strapi4 /opt/app
