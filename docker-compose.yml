@@ -1,20 +1,20 @@
 services:
-  nginx:
-    build:
-      context: nginx
-      dockerfile: Dockerfile
-      args:
-        SERVER_NAME: ${SERVER_NAME}
-    ports:
-      - 80:80
-      - 443:443
-    depends_on:
-      - strapi
-    networks:
-      - webhost
-    volumes:
-      - wellknown:/usr/share/nginx/html/.well-known
-    restart: unless-stopped
+  # nginx:
+  #   build:
+  #     context: nginx
+  #     dockerfile: Dockerfile
+  #     args:
+  #       SERVER_NAME: ${SERVER_NAME}
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   depends_on:
+  #     - strapi
+  #   networks:
+  #     - webhost
+  #   volumes:
+  #     - wellknown:/usr/share/nginx/html/.well-known
+  #   restart: unless-stopped
 
   strapi:
     build: strapi4
