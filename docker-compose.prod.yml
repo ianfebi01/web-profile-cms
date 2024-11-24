@@ -1,5 +1,8 @@
 services:
   strapi:
+    build:
+      context: ./strapi4
+      dockerfile: Dockerfile.prod
     user: strapi4:strapi4
     command: ["yarn", "--cache-folder", "/opt/app", "start"]
     ports:

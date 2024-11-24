@@ -1,0 +1,48 @@
+# Build stage
+FROM node:20-bullseye-slim as builder
+
+# Install dependencies for build
+RUN apt-get update && apt-get install -y --no-install-recommends libvips-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set working directory and environment variables
+WORKDIR /opt/app
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+ENV PATH /opt/app/node_modules/.bin:$PATH
+
+# Copy application files and install dependencies
+COPY strapi4-app /opt/app
+RUN yarn config set network-timeout 600000 -g && \
+    yarn install --force && \
+    yarn build
+
+# Runtime stage
+FROM node:20-bullseye-slim
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends libvips-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Create a non-root user
+RUN useradd --no-log-init -r -m -d /opt/app strapi4
+
+# Set working directory and environment variables
+WORKDIR /opt/app
+ENV NODE_ENV=production
+ENV PATH /opt/app/node_modules/.bin:$PATH
+
+# Copy built application and dependencies from builder stage
+COPY --from=builder /opt/app /opt/app
+
+# Ensure permissions are correct
+RUN chown -R strapi4:strapi4 /opt/app
+
+# Switch to non-root user
+USER strapi4
+
+# Expose the application port
+EXPOSE 1337
+
+# Run the application
+CMD ["yarn", "start"]
