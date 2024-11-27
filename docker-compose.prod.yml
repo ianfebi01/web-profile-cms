@@ -4,7 +4,7 @@ services:
       context: ./strapi4
       dockerfile: Dockerfile.prod
     user: strapi4:strapi4
-    image: web-profile-cms-strapi
+    image: web-profile-cms-strapi-amd64
     command: ["yarn", "--cache-folder", "/opt/app", "start"]
     ports:
       - 1337:1337
