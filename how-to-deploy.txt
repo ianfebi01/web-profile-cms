@@ -1,0 +1,14 @@
+# build
+docker buildx build --file ./strapi4/Dockerfile.prod --platform linux/amd64 -t web-profile-cms-strapi-amd64 ./strapi4
+
+# save
+# docker save web-profile-cms-strapi-amd64 -o web-profile-cms-strapi.tar
+docker save web-profile-cms-strapi-amd64 | gzip > /tmp/web-profile-cms-strapi-amd64.tar.gz
+
+# upload
+scp /tmp/web-profile-cms-strapi-amd64.tar.gz ianfebi01@103.150.196.117:/tmp 
+
+ssh ianfebi01@103.150.196.117 "docker load -i /tmp/web-profile-cms-strapi-amd64.tar.gz && \
+  rm /tmp/web-profile-cms-strapi-amd64.tar.gz"
+
+docker

@@ -39,9 +39,9 @@ services:
   #   deploy:
   #     replicas: 0
 
-  nginx:
-    deploy:
-      replicas: 0
+  # nginx:
+  #   deploy:
+  #     replicas: 0
 
 volumes:
   cms_db_data:
