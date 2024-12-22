@@ -11,4 +11,4 @@ scp /tmp/web-profile-cms-strapi-amd64.tar.gz ianfebi01@103.150.196.117:/tmp
 ssh ianfebi01@103.150.196.117 "docker load -i /tmp/web-profile-cms-strapi-amd64.tar.gz && \
   rm /tmp/web-profile-cms-strapi-amd64.tar.gz"
 
-docker
+  docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
