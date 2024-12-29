@@ -51,6 +51,14 @@
         "image",
         "content"
       ]
+    },
+    "scaling": {
+      "type": "enumeration",
+      "enum": [
+        "contain",
+        "cover"
+      ],
+      "default": "cover"
     }
   }
 }

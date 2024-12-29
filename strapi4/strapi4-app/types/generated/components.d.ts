@@ -107,6 +107,8 @@ export interface ContentComponentsTextLeftImageRight extends Schema.Component {
       >;
     sectionSettings: Attribute.Component<'common-fields.section-settings'>;
     biggerColumn: Attribute.Enumeration<['image', 'content']>;
+    scaling: Attribute.Enumeration<['contain', 'cover']> &
+      Attribute.DefaultTo<'cover'>;
   };
 }
 

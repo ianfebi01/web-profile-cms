@@ -62,8 +62,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     # Only uncomment this to expose the database for direct access 
-    ports:
-      - 5432:5432
+    # ports:
+    #   - 5432:5432
     networks:
       - cms_int
       - database
