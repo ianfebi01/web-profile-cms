@@ -80,6 +80,7 @@ export interface NavCategoriesNavCategories extends Schema.Component {
   attributes: {
     navItems: Attribute.Component<'nav-items.nav-items', true>;
     categoryName: Attribute.String;
+    navItem: Attribute.Component<'nav-items.nav-items'>;
   };
 }
 
