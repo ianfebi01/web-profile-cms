@@ -3,7 +3,7 @@
 IMAGE_NAME=web-profile-cms-strapi-amd64
 SSH_USER=ianfebi01
 SSH_HOST=103.150.196.117
-DOCKERFILE=./strapi4/Dockerfile.prod
+DOCKERFILE=./strapi4/Dockerfile
 
 SERVER_DOCKER_COMPOSE_LOCATION=app/web-profile-cms
 
