@@ -9,56 +9,28 @@
     "heading": {
       "type": "string"
     },
-    "subHeading": {
-      "type": "string"
-    },
-    "backgroundImage": {
+    "background": {
       "type": "media",
       "multiple": false,
       "required": false,
       "allowedTypes": [
-        "images"
+        "images",
+        "videos"
       ]
     },
-    "watermarkLeft": {
-      "type": "enumeration",
-      "enum": [
-        "triangle",
-        "octagon"
-      ]
-    },
-    "watermarkRight": {
-      "type": "enumeration",
-      "enum": [
-        "triangle",
-        "circle",
-        "infinity",
-        "octagon"
-      ]
-    },
-    "watermarkLeftOverflow": {
-      "type": "boolean",
-      "default": false
-    },
-    "watermarkRightOverflow": {
-      "type": "boolean",
-      "default": false
-    },
-    "description": {
-      "type": "text"
-    },
-    "links": {
+    "buttons": {
       "displayName": "links",
       "type": "component",
       "repeatable": true,
       "component": "arrays.links"
     },
-    "backgroundVideo": {
-      "allowedTypes": [
-        "videos"
-      ],
-      "type": "media",
-      "multiple": false
+    "description": {
+      "type": "customField",
+      "options": {
+        "output": "Markdown",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }

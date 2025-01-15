@@ -403,17 +403,16 @@ export interface BannerComponentsBannerStandard extends Schema.Component {
   };
   attributes: {
     heading: Attribute.String;
-    subHeading: Attribute.String;
-    backgroundImage: Attribute.Media<'images'>;
-    watermarkLeft: Attribute.Enumeration<['triangle', 'octagon']>;
-    watermarkRight: Attribute.Enumeration<
-      ['triangle', 'circle', 'infinity', 'octagon']
-    >;
-    watermarkLeftOverflow: Attribute.Boolean & Attribute.DefaultTo<false>;
-    watermarkRightOverflow: Attribute.Boolean & Attribute.DefaultTo<false>;
-    description: Attribute.Text;
-    links: Attribute.Component<'arrays.links', true>;
-    backgroundVideo: Attribute.Media<'videos'>;
+    background: Attribute.Media<'images' | 'videos'>;
+    buttons: Attribute.Component<'arrays.links', true>;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
   };
 }
 
