@@ -1,14 +1,15 @@
 {
   "collectionName": "components_content_components_icon_texts",
   "info": {
-    "displayName": "iconTexts"
+    "displayName": "iconTexts",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "icons": {
       "type": "component",
       "repeatable": true,
-      "component": "arrays.image-galery",
+      "component": "arrays.gallery-items",
       "required": true
     },
     "sectionSettings": {
