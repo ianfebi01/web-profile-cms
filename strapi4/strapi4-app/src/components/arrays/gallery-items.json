@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_arrays_gallery_items",
+  "info": {
+    "displayName": "galleryItems"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": false
+    },
+    "bodyCopy": {
+      "type": "customField",
+      "options": {
+        "output": "Markdown",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
+    },
+    "link": {
+      "type": "string"
+    },
+    "linkNewTab": {
+      "type": "boolean"
+    }
+  }
+}

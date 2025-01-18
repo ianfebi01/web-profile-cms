@@ -182,6 +182,18 @@ export interface ContentComponentsJobSearch extends Schema.Component {
   };
 }
 
+export interface ContentComponentsIconTexts extends Schema.Component {
+  collectionName: 'components_content_components_icon_texts';
+  info: {
+    displayName: 'iconTexts';
+  };
+  attributes: {
+    icons: Attribute.Component<'arrays.image-galery', true> &
+      Attribute.Required;
+    sectionSettings: Attribute.Component<'common-fields.section-settings'>;
+  };
+}
+
 export interface ContentComponentsFeaturedPortofolios extends Schema.Component {
   collectionName: 'components_content_components_featured_portofolios';
   info: {
@@ -509,6 +521,26 @@ export interface ArraysGallery extends Schema.Component {
   };
 }
 
+export interface ArraysGalleryItems extends Schema.Component {
+  collectionName: 'components_arrays_gallery_items';
+  info: {
+    displayName: 'galleryItems';
+  };
+  attributes: {
+    image: Attribute.Media<'images'>;
+    bodyCopy: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
+    link: Attribute.String;
+    linkNewTab: Attribute.Boolean;
+  };
+}
+
 export interface ArraysColumns extends Schema.Component {
   collectionName: 'components_arrays_columns';
   info: {
@@ -548,6 +580,7 @@ declare module '@strapi/types' {
       'content-components.partner-search': ContentComponentsPartnerSearch;
       'content-components.news-search': ContentComponentsNewsSearch;
       'content-components.job-search': ContentComponentsJobSearch;
+      'content-components.icon-texts': ContentComponentsIconTexts;
       'content-components.featured-portofolios': ContentComponentsFeaturedPortofolios;
       'content-components.featured-peoples': ContentComponentsFeaturedPeoples;
       'content-components.featured-news': ContentComponentsFeaturedNews;
@@ -566,6 +599,7 @@ declare module '@strapi/types' {
       'arrays.items': ArraysItems;
       'arrays.image-galery': ArraysImageGalery;
       'arrays.gallery': ArraysGallery;
+      'arrays.gallery-items': ArraysGalleryItems;
       'arrays.columns': ArraysColumns;
       'arrays.button': ArraysButton;
     }

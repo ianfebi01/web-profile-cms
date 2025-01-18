@@ -916,21 +916,16 @@ export interface ApiPagePage extends Schema.CollectionType {
       >;
     content: Attribute.DynamicZone<
       [
-        'content-components.arbitrary',
         'content-components.body-copy',
         'content-components.text-left-image-right',
         'content-components.simple-cards',
         'content-components.small-banner',
-        'content-components.featured-peoples',
-        'content-components.job-search',
-        'content-components.news-search',
         'content-components.divider',
-        'content-components.partner-search',
         'content-components.accordian',
-        'content-components.featured-news',
         'content-components.quote',
         'content-components.featured-portofolios',
-        'content-components.featured-experiences'
+        'content-components.featured-experiences',
+        'content-components.icon-texts'
       ]
     > &
       Attribute.SetPluginOptions<{
