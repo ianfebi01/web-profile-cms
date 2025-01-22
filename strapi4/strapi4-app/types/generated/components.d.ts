@@ -84,89 +84,6 @@ export interface NavCategoriesNavCategories extends Schema.Component {
   };
 }
 
-export interface CommonFieldsSectionSettings extends Schema.Component {
-  collectionName: 'components_common_fields_section-settings';
-  info: {
-    displayName: 'sectionSettings';
-    description: '';
-  };
-  attributes: {
-    heading: Attribute.String;
-    centreText: Attribute.Boolean;
-    largeHeading: Attribute.Boolean;
-    description: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor.CKEditor',
-        {
-          output: 'Markdown';
-          preset: 'standard';
-        }
-      >;
-    paddingTop: Attribute.Enumeration<
-      [
-        'pt-0',
-        'pt-2',
-        'pt-4',
-        'pt-6',
-        'pt-8',
-        'pt-10',
-        'pt-12',
-        'pt-16',
-        'pt-20',
-        'pt-24'
-      ]
-    >;
-    paddingBottom: Attribute.Enumeration<
-      [
-        'pb-0',
-        'pb-2',
-        'pb-4',
-        'pb-6',
-        'pb-8',
-        'pb-10',
-        'pb-12',
-        'pb-16',
-        'pb-20',
-        'pb-24'
-      ]
-    >;
-    htmlId: Attribute.String;
-    bgColour: Attribute.Relation<
-      'common-fields.section-settings',
-      'oneToOne',
-      'api::colour.colour'
-    >;
-    marginTop: Attribute.Enumeration<
-      [
-        'mt-0',
-        'mt-2',
-        'mt-4',
-        'mt-6',
-        'mt-8',
-        'mt-10',
-        'mt-12',
-        'mt-16',
-        'mt-20',
-        'mt-24'
-      ]
-    >;
-    marginBottom: Attribute.Enumeration<
-      [
-        'mb-0',
-        'mb-2',
-        'mb-4',
-        'mb-6',
-        'mb-8',
-        'mb-10',
-        'mb-12',
-        'mb-16',
-        'mb-20',
-        'mb-24'
-      ]
-    >;
-  };
-}
-
 export interface ContentComponentsTextLeftImageRight extends Schema.Component {
   collectionName: 'components_content_components_text_left_image_rights';
   info: {
@@ -429,6 +346,89 @@ export interface BannerComponentsBannerStandard extends Schema.Component {
   };
 }
 
+export interface CommonFieldsSectionSettings extends Schema.Component {
+  collectionName: 'components_common_fields_section-settings';
+  info: {
+    displayName: 'sectionSettings';
+    description: '';
+  };
+  attributes: {
+    heading: Attribute.String;
+    centreText: Attribute.Boolean;
+    largeHeading: Attribute.Boolean;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
+    paddingTop: Attribute.Enumeration<
+      [
+        'pt-0',
+        'pt-2',
+        'pt-4',
+        'pt-6',
+        'pt-8',
+        'pt-10',
+        'pt-12',
+        'pt-16',
+        'pt-20',
+        'pt-24'
+      ]
+    >;
+    paddingBottom: Attribute.Enumeration<
+      [
+        'pb-0',
+        'pb-2',
+        'pb-4',
+        'pb-6',
+        'pb-8',
+        'pb-10',
+        'pb-12',
+        'pb-16',
+        'pb-20',
+        'pb-24'
+      ]
+    >;
+    htmlId: Attribute.String;
+    bgColour: Attribute.Relation<
+      'common-fields.section-settings',
+      'oneToOne',
+      'api::colour.colour'
+    >;
+    marginTop: Attribute.Enumeration<
+      [
+        'mt-0',
+        'mt-2',
+        'mt-4',
+        'mt-6',
+        'mt-8',
+        'mt-10',
+        'mt-12',
+        'mt-16',
+        'mt-20',
+        'mt-24'
+      ]
+    >;
+    marginBottom: Attribute.Enumeration<
+      [
+        'mb-0',
+        'mb-2',
+        'mb-4',
+        'mb-6',
+        'mb-8',
+        'mb-10',
+        'mb-12',
+        'mb-16',
+        'mb-20',
+        'mb-24'
+      ]
+    >;
+  };
+}
+
 export interface ArraysSocials extends Schema.Component {
   collectionName: 'components_arrays_socials';
   info: {
@@ -574,7 +574,6 @@ declare module '@strapi/types' {
       'shared.meta-social': SharedMetaSocial;
       'nav-items.nav-items': NavItemsNavItems;
       'nav-categories.nav-categories': NavCategoriesNavCategories;
-      'common-fields.section-settings': CommonFieldsSectionSettings;
       'content-components.text-left-image-right': ContentComponentsTextLeftImageRight;
       'content-components.small-banner': ContentComponentsSmallBanner;
       'content-components.simple-cards': ContentComponentsSimpleCards;
@@ -594,6 +593,7 @@ declare module '@strapi/types' {
       'banner-components.profile-banner': BannerComponentsProfileBanner;
       'banner-components.carousel': BannerComponentsCarousel;
       'banner-components.banner-standard': BannerComponentsBannerStandard;
+      'common-fields.section-settings': CommonFieldsSectionSettings;
       'arrays.socials': ArraysSocials;
       'arrays.simple-card': ArraysSimpleCard;
       'arrays.links': ArraysLinks;
