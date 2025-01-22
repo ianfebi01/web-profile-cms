@@ -12,3 +12,14 @@ ssh ianfebi01@103.150.196.117 "docker load -i /tmp/web-profile-cms-strapi-amd64.
   rm /tmp/web-profile-cms-strapi-amd64.tar.gz"
 
   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+
+
+
+
+docker load -i /tmp/web-profile-cms-strapi-amd64.tar.gz && \
+rm /tmp/web-profile-cms-strapi-amd64.tar.gz && \
+cd app/web-profile-cms && \
+docker compose down && \
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d && \
+exit
