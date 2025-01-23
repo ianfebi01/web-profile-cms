@@ -22,9 +22,9 @@ USER strapi4
 RUN yarn config set network-timeout 600000 -g
 RUN yarn --force install
 
-RUN yarn --cache-folder /opt/app build
+RUN yarn build
 
 
 EXPOSE 1337
 
-CMD ["yarn", "--cache-folder", "/opt/app", "start"]
+CMD ["yarn", "start"]
