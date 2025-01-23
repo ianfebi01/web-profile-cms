@@ -17,6 +17,10 @@ ssh ianfebi01@103.150.196.117 "docker load -i /tmp/web-profile-cms-strapi-amd64.
 
 
 
+
+  scp /tmp/web-profile-cms-strapi-amd64.tar.gz ianfebi01@103.150.196.117:/tmp
+
+
 docker load -i /tmp/web-profile-cms-strapi-amd64.tar.gz && \
 rm /tmp/web-profile-cms-strapi-amd64.tar.gz && \
 cd app/web-profile-cms && \
