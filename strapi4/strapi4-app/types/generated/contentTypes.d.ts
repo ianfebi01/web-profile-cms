@@ -1030,7 +1030,6 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
       > &
       Attribute.DefaultTo<2024>;
     featureImage: Attribute.Media<'images'> & Attribute.Required;
-    galery: Attribute.Component<'arrays.image-galery', true>;
     url: Attribute.String;
     skills: Attribute.Relation<
       'api::portofolio.portofolio',
@@ -1045,6 +1044,7 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
           preset: 'standard';
         }
       >;
+    gallery: Attribute.Media<'images', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

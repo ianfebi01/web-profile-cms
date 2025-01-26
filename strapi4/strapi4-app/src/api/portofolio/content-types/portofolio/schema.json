@@ -36,11 +36,6 @@
         "images"
       ]
     },
-    "galery": {
-      "type": "component",
-      "repeatable": true,
-      "component": "arrays.image-galery"
-    },
     "url": {
       "type": "string"
     },
@@ -56,6 +51,13 @@
         "preset": "standard"
       },
       "customField": "plugin::ckeditor.CKEditor"
+    },
+    "gallery": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }
