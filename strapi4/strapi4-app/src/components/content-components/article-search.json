@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_content_components_article_searches",
+  "info": {
+    "displayName": "articleSearch"
+  },
+  "options": {},
+  "attributes": {
+    "sectionSettings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common-fields.section-settings"
+    }
+  }
+}

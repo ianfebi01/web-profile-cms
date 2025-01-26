@@ -973,7 +973,9 @@ export interface ApiPagePage extends Schema.CollectionType {
         'content-components.quote',
         'content-components.featured-portofolios',
         'content-components.featured-experiences',
-        'content-components.icon-texts'
+        'content-components.icon-texts',
+        'content-components.article-search',
+        'content-components.portofolio-search'
       ]
     > &
       Attribute.SetPluginOptions<{
