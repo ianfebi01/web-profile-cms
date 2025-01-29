@@ -818,6 +818,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
       'manyToMany',
       'api::tag.tag'
     >;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
