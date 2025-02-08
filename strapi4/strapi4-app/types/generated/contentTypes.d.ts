@@ -1255,14 +1255,54 @@ export interface ApiSiteSite extends Schema.SingleType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    description: Attribute.String;
-    logo: Attribute.Media<'images'>;
-    favicon: Attribute.Media<'images'>;
-    socials: Attribute.Component<'arrays.socials', true>;
-    mainNavMenu: Attribute.Component<'nav-categories.nav-categories', true>;
-    footerNavMenu: Attribute.Component<'nav-categories.nav-categories', true>;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    logo: Attribute.Media<'images'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    favicon: Attribute.Media<'images'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    socials: Attribute.Component<'arrays.socials', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    mainNavMenu: Attribute.Component<'nav-categories.nav-categories', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    footerNavMenu: Attribute.Component<'nav-categories.nav-categories', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1270,6 +1310,12 @@ export interface ApiSiteSite extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::site.site', 'oneToOne', 'admin::user'> &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::site.site',
+      'oneToMany',
+      'api::site.site'
+    >;
+    locale: Attribute.String;
   };
 }
 
