@@ -22,6 +22,26 @@ export default ({ env }) => ({
       host: env("MEILI_URL"),
       // Your master key or private key
       apiKey: env("MEILI_MASTER_KEY"),
+      article: {
+        entriesQuery: {
+          locale: 'all',
+        },
+        settings: {
+          filterableAttributes: [
+            'locale',
+            'tags',
+            'publishedAt',
+            'date',
+            'createdAt'
+          ],
+          sortableAttributes: [
+            'date',
+            'publishedAt',
+            'createdAt',
+            'name',
+          ],
+        },
+      },
     },
   },
 });
