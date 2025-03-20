@@ -42,6 +42,26 @@ export default ({ env }) => ({
           ],
         },
       },
+      portofolio: {
+        entriesQuery: {
+          locale: 'all',
+        },
+        settings: {
+          filterableAttributes: [
+            'locale',
+            'title',
+            'publishedAt',
+            'year',
+            'createdAt'
+          ],
+          sortableAttributes: [
+            'year',
+            'publishedAt',
+            'createdAt',
+            'title',
+          ],
+        },
+      },
     },
   },
 });
