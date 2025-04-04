@@ -913,6 +913,52 @@ export interface ApiExperienceExperience extends Schema.CollectionType {
   };
 }
 
+export interface ApiHomePageHomePage extends Schema.SingleType {
+  collectionName: 'home_pages';
+  info: {
+    singularName: 'home-page';
+    pluralName: 'home-pages';
+    displayName: 'HomePage';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    page: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'api::page.page'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToMany',
+      'api::home-page.home-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiPagePage extends Schema.CollectionType {
   collectionName: 'pages';
   info: {
@@ -1462,6 +1508,7 @@ declare module '@strapi/types' {
       'api::article.article': ApiArticleArticle;
       'api::colour.colour': ApiColourColour;
       'api::experience.experience': ApiExperienceExperience;
+      'api::home-page.home-page': ApiHomePageHomePage;
       'api::page.page': ApiPagePage;
       'api::portofolio.portofolio': ApiPortofolioPortofolio;
       'api::product.product': ApiProductProduct;
