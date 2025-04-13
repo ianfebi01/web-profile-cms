@@ -51,6 +51,19 @@ export interface SharedMetaSocial extends Schema.Component {
   };
 }
 
+export interface NavCategoriesNavCategories extends Schema.Component {
+  collectionName: 'components_nav_categories_nav_categories';
+  info: {
+    displayName: 'Nav Categories';
+    description: '';
+  };
+  attributes: {
+    navItems: Attribute.Component<'nav-items.nav-items', true>;
+    categoryName: Attribute.String;
+    navItem: Attribute.Component<'nav-items.nav-items'>;
+  };
+}
+
 export interface NavItemsNavItems extends Schema.Component {
   collectionName: 'components_nav_items_nav_items';
   info: {
@@ -71,16 +84,141 @@ export interface NavItemsNavItems extends Schema.Component {
   };
 }
 
-export interface NavCategoriesNavCategories extends Schema.Component {
-  collectionName: 'components_nav_categories_nav_categories';
+export interface CommonFieldsSectionSettings extends Schema.Component {
+  collectionName: 'components_common_fields_section-settings';
   info: {
-    displayName: 'Nav Categories';
+    displayName: 'sectionSettings';
     description: '';
   };
   attributes: {
-    navItems: Attribute.Component<'nav-items.nav-items', true>;
-    categoryName: Attribute.String;
-    navItem: Attribute.Component<'nav-items.nav-items'>;
+    heading: Attribute.String;
+    centreText: Attribute.Boolean;
+    largeHeading: Attribute.Boolean;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
+    paddingTop: Attribute.Enumeration<
+      [
+        'pt-0',
+        'pt-2',
+        'pt-4',
+        'pt-6',
+        'pt-8',
+        'pt-10',
+        'pt-12',
+        'pt-16',
+        'pt-20',
+        'pt-24'
+      ]
+    >;
+    paddingBottom: Attribute.Enumeration<
+      [
+        'pb-0',
+        'pb-2',
+        'pb-4',
+        'pb-6',
+        'pb-8',
+        'pb-10',
+        'pb-12',
+        'pb-16',
+        'pb-20',
+        'pb-24'
+      ]
+    >;
+    htmlId: Attribute.String;
+    bgColour: Attribute.Relation<
+      'common-fields.section-settings',
+      'oneToOne',
+      'api::colour.colour'
+    >;
+    marginTop: Attribute.Enumeration<
+      [
+        'mt-0',
+        'mt-2',
+        'mt-4',
+        'mt-6',
+        'mt-8',
+        'mt-10',
+        'mt-12',
+        'mt-16',
+        'mt-20',
+        'mt-24'
+      ]
+    >;
+    marginBottom: Attribute.Enumeration<
+      [
+        'mb-0',
+        'mb-2',
+        'mb-4',
+        'mb-6',
+        'mb-8',
+        'mb-10',
+        'mb-12',
+        'mb-16',
+        'mb-20',
+        'mb-24'
+      ]
+    >;
+  };
+}
+
+export interface BannerComponentsProfileBanner extends Schema.Component {
+  collectionName: 'components_banner_components_profile_banners';
+  info: {
+    displayName: 'profileBanner';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    bio: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
+    bannerImage: Attribute.Media<'images'> & Attribute.Required;
+    socials: Attribute.Relation<
+      'banner-components.profile-banner',
+      'oneToMany',
+      'api::social.social'
+    >;
+    avatar: Attribute.Media<'images'> & Attribute.Required;
+  };
+}
+
+export interface BannerComponentsCarousel extends Schema.Component {
+  collectionName: 'components_banner_components_carousels';
+  info: {
+    displayName: 'carousel';
+  };
+  attributes: {};
+}
+
+export interface BannerComponentsBannerStandard extends Schema.Component {
+  collectionName: 'components_banner_components_banner_standards';
+  info: {
+    displayName: 'bannerStandard';
+    description: '';
+  };
+  attributes: {
+    heading: Attribute.String;
+    background: Attribute.Media<'images' | 'videos'>;
+    buttons: Attribute.Component<'arrays.links', true>;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
   };
 }
 
@@ -311,61 +449,6 @@ export interface ContentComponentsAccordian extends Schema.Component {
   };
 }
 
-export interface BannerComponentsProfileBanner extends Schema.Component {
-  collectionName: 'components_banner_components_profile_banners';
-  info: {
-    displayName: 'profileBanner';
-    description: '';
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    bio: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor.CKEditor',
-        {
-          output: 'Markdown';
-          preset: 'standard';
-        }
-      >;
-    bannerImage: Attribute.Media<'images'> & Attribute.Required;
-    socials: Attribute.Relation<
-      'banner-components.profile-banner',
-      'oneToMany',
-      'api::social.social'
-    >;
-    avatar: Attribute.Media<'images'> & Attribute.Required;
-  };
-}
-
-export interface BannerComponentsCarousel extends Schema.Component {
-  collectionName: 'components_banner_components_carousels';
-  info: {
-    displayName: 'carousel';
-  };
-  attributes: {};
-}
-
-export interface BannerComponentsBannerStandard extends Schema.Component {
-  collectionName: 'components_banner_components_banner_standards';
-  info: {
-    displayName: 'bannerStandard';
-    description: '';
-  };
-  attributes: {
-    heading: Attribute.String;
-    background: Attribute.Media<'images' | 'videos'>;
-    buttons: Attribute.Component<'arrays.links', true>;
-    description: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor.CKEditor',
-        {
-          output: 'Markdown';
-          preset: 'standard';
-        }
-      >;
-  };
-}
-
 export interface ArraysSocials extends Schema.Component {
   collectionName: 'components_arrays_socials';
   info: {
@@ -504,96 +587,17 @@ export interface ArraysButton extends Schema.Component {
   };
 }
 
-export interface CommonFieldsSectionSettings extends Schema.Component {
-  collectionName: 'components_common_fields_section-settings';
-  info: {
-    displayName: 'sectionSettings';
-    description: '';
-  };
-  attributes: {
-    heading: Attribute.String;
-    centreText: Attribute.Boolean;
-    largeHeading: Attribute.Boolean;
-    description: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor.CKEditor',
-        {
-          output: 'Markdown';
-          preset: 'standard';
-        }
-      >;
-    paddingTop: Attribute.Enumeration<
-      [
-        'pt-0',
-        'pt-2',
-        'pt-4',
-        'pt-6',
-        'pt-8',
-        'pt-10',
-        'pt-12',
-        'pt-16',
-        'pt-20',
-        'pt-24'
-      ]
-    >;
-    paddingBottom: Attribute.Enumeration<
-      [
-        'pb-0',
-        'pb-2',
-        'pb-4',
-        'pb-6',
-        'pb-8',
-        'pb-10',
-        'pb-12',
-        'pb-16',
-        'pb-20',
-        'pb-24'
-      ]
-    >;
-    htmlId: Attribute.String;
-    bgColour: Attribute.Relation<
-      'common-fields.section-settings',
-      'oneToOne',
-      'api::colour.colour'
-    >;
-    marginTop: Attribute.Enumeration<
-      [
-        'mt-0',
-        'mt-2',
-        'mt-4',
-        'mt-6',
-        'mt-8',
-        'mt-10',
-        'mt-12',
-        'mt-16',
-        'mt-20',
-        'mt-24'
-      ]
-    >;
-    marginBottom: Attribute.Enumeration<
-      [
-        'mb-0',
-        'mb-2',
-        'mb-4',
-        'mb-6',
-        'mb-8',
-        'mb-10',
-        'mb-12',
-        'mb-16',
-        'mb-20',
-        'mb-24'
-      ]
-    >;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'shared.seo': SharedSeo;
       'shared.meta-social': SharedMetaSocial;
-      'nav-items.nav-items': NavItemsNavItems;
       'nav-categories.nav-categories': NavCategoriesNavCategories;
+      'nav-items.nav-items': NavItemsNavItems;
+      'common-fields.section-settings': CommonFieldsSectionSettings;
+      'banner-components.profile-banner': BannerComponentsProfileBanner;
+      'banner-components.carousel': BannerComponentsCarousel;
+      'banner-components.banner-standard': BannerComponentsBannerStandard;
       'content-components.text-left-image-right': ContentComponentsTextLeftImageRight;
       'content-components.small-banner': ContentComponentsSmallBanner;
       'content-components.simple-cards': ContentComponentsSimpleCards;
@@ -612,9 +616,6 @@ declare module '@strapi/types' {
       'content-components.article-search': ContentComponentsArticleSearch;
       'content-components.arbitrary': ContentComponentsArbitrary;
       'content-components.accordian': ContentComponentsAccordian;
-      'banner-components.profile-banner': BannerComponentsProfileBanner;
-      'banner-components.carousel': BannerComponentsCarousel;
-      'banner-components.banner-standard': BannerComponentsBannerStandard;
       'arrays.socials': ArraysSocials;
       'arrays.simple-card': ArraysSimpleCard;
       'arrays.links': ArraysLinks;
@@ -624,7 +625,6 @@ declare module '@strapi/types' {
       'arrays.gallery-items': ArraysGalleryItems;
       'arrays.columns': ArraysColumns;
       'arrays.button': ArraysButton;
-      'common-fields.section-settings': CommonFieldsSectionSettings;
     }
   }
 }
