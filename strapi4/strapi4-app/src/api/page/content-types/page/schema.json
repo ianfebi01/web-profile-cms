@@ -28,7 +28,7 @@
     "slug": {
       "type": "string",
       "regex": "^[a-z|0-9|-]+$",
-      "unique": true,
+      "unique": false,
       "required": true,
       "pluginOptions": {
         "i18n": {
