@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mm_categories",
+  "info": {
+    "singularName": "mm-category",
+    "pluralName": "mm-categories",
+    "displayName": "MM Category"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

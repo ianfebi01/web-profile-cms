@@ -742,7 +742,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -770,6 +769,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'manyToOne',
       'plugin::users-permissions.role'
+    >;
+    moneyManager: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::money-manager.money-manager'
+    >;
+    mmCategories: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::mm-category.mm-category'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1039,6 +1048,71 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
       'api::home-page.home-page'
     >;
     locale: Attribute.String;
+  };
+}
+
+export interface ApiMmCategoryMmCategory extends Schema.CollectionType {
+  collectionName: 'mm_categories';
+  info: {
+    singularName: 'mm-category';
+    pluralName: 'mm-categories';
+    displayName: 'MM Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::mm-category.mm-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::mm-category.mm-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMoneyManagerMoneyManager extends Schema.CollectionType {
+  collectionName: 'money_managers';
+  info: {
+    singularName: 'money-manager';
+    pluralName: 'money-managers';
+    displayName: 'Money Manager';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    date: Attribute.Date;
+    note: Attribute.Text;
+    type: Attribute.Enumeration<['income', 'expense']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'expense'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::money-manager.money-manager',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::money-manager.money-manager',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
   };
 }
 
@@ -1640,6 +1714,8 @@ declare module '@strapi/types' {
       'api::colour.colour': ApiColourColour;
       'api::experience.experience': ApiExperienceExperience;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::mm-category.mm-category': ApiMmCategoryMmCategory;
+      'api::money-manager.money-manager': ApiMoneyManagerMoneyManager;
       'api::page.page': ApiPagePage;
       'api::portofolio.portofolio': ApiPortofolioPortofolio;
       'api::product.product': ApiProductProduct;
