@@ -822,14 +822,14 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     date: Attribute.Date &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     featureImage: Attribute.Media<'images'> &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     content: Attribute.RichText &
@@ -840,7 +840,12 @@ export interface ApiArticleArticle extends Schema.CollectionType {
           output: 'Markdown';
           preset: 'standard';
         }
-      >;
+      > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     tags: Attribute.Relation<
       'api::article.article',
       'manyToMany',
@@ -938,13 +943,13 @@ export interface ApiExperienceExperience extends Schema.CollectionType {
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     endDate: Attribute.Date &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     role: Attribute.String &
@@ -961,7 +966,12 @@ export interface ApiExperienceExperience extends Schema.CollectionType {
           output: 'Markdown';
           preset: 'standard';
         }
-      >;
+      > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1159,7 +1169,7 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }> &
       Attribute.SetMinMax<
@@ -1174,13 +1184,13 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     url: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     skills: Attribute.Relation<
@@ -1195,11 +1205,16 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
           output: 'Markdown';
           preset: 'standard';
         }
-      >;
-    gallery: Attribute.Media<'images', true> &
+      > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
+        };
+      }>;
+    gallery: Attribute.Media<'images', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
         };
       }>;
     createdAt: Attribute.DateTime;
