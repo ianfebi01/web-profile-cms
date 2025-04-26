@@ -770,16 +770,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    moneyManager: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'api::money-manager.money-manager'
-    >;
-    mmCategories: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::mm-category.mm-category'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1057,15 +1047,15 @@ export interface ApiMmCategoryMmCategory extends Schema.CollectionType {
     singularName: 'mm-category';
     pluralName: 'mm-categories';
     displayName: 'MM Category';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::mm-category.mm-category',
       'oneToOne',
@@ -1074,41 +1064,6 @@ export interface ApiMmCategoryMmCategory extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::mm-category.mm-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiMoneyManagerMoneyManager extends Schema.CollectionType {
-  collectionName: 'money_managers';
-  info: {
-    singularName: 'money-manager';
-    pluralName: 'money-managers';
-    displayName: 'Money Manager';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String;
-    date: Attribute.Date;
-    note: Attribute.Text;
-    type: Attribute.Enumeration<['income', 'expense']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'expense'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::money-manager.money-manager',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::money-manager.money-manager',
       'oneToOne',
       'admin::user'
     > &
@@ -1692,6 +1647,44 @@ export interface ApiTagTag extends Schema.CollectionType {
   };
 }
 
+export interface ApiTransactionTransaction extends Schema.CollectionType {
+  collectionName: 'transactions';
+  info: {
+    singularName: 'transaction';
+    pluralName: 'transactions';
+    displayName: 'Transaction';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    amount: Attribute.Decimal;
+    type: Attribute.Enumeration<['income', 'expense']>;
+    description: Attribute.String;
+    date: Attribute.DateTime;
+    user: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1715,7 +1708,6 @@ declare module '@strapi/types' {
       'api::experience.experience': ApiExperienceExperience;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::mm-category.mm-category': ApiMmCategoryMmCategory;
-      'api::money-manager.money-manager': ApiMoneyManagerMoneyManager;
       'api::page.page': ApiPagePage;
       'api::portofolio.portofolio': ApiPortofolioPortofolio;
       'api::product.product': ApiProductProduct;
@@ -1725,6 +1717,7 @@ declare module '@strapi/types' {
       'api::skill.skill': ApiSkillSkill;
       'api::social.social': ApiSocialSocial;
       'api::tag.tag': ApiTagTag;
+      'api::transaction.transaction': ApiTransactionTransaction;
     }
   }
 }

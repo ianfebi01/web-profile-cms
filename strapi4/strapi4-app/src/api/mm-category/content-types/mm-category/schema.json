@@ -4,10 +4,11 @@
   "info": {
     "singularName": "mm-category",
     "pluralName": "mm-categories",
-    "displayName": "MM Category"
+    "displayName": "MM Category",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
