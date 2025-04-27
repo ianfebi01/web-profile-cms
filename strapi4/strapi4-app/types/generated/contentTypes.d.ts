@@ -1054,6 +1054,11 @@ export interface ApiMmCategoryMmCategory extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
+    user: Attribute.Relation<
+      'api::mm-category.mm-category',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1667,6 +1672,11 @@ export interface ApiTransactionTransaction extends Schema.CollectionType {
       'api::transaction.transaction',
       'oneToOne',
       'plugin::users-permissions.user'
+    >;
+    mm_category: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'api::mm-category.mm-category'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
