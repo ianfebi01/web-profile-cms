@@ -61,6 +61,10 @@ export default (plugin: any) => {
             user: userId,
           },
           {
+            name: "transportation",
+            user: userId,
+          },
+          {
             name: "other",
             user: userId,
           },
