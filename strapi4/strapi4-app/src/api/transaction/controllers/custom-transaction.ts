@@ -1,9 +1,14 @@
+
 export default {
   async monthly(ctx) {
     const user = ctx.state.user;
-    const { month } = ctx.query;
+    const { month, year } = ctx.query;
 
-    const startDate = new Date(`${month}-01`);
+    if (!month || !year) {
+      return ctx.badRequest("Month and year are required");
+    }
+
+    const startDate = new Date(`${year}-${month}-01`);
     const endDate = new Date(startDate);
     endDate.setMonth(startDate.getMonth() + 1);
 
@@ -34,14 +39,12 @@ export default {
       .filter((t) => t.type === "expense")
       .reduce((sum, t) => sum + t.amount, 0);
 
-    // Helper function to format date as 'YYYY-MM-DD'
     function formatDate(date) {
       const d = new Date(date);
       const day = String(d.getDate()).padStart(2, "0");
       return `${day}`;
     }
 
-    // Group transactions by date
     const grouped = transactions.reduce((groups, transaction) => {
       const dateKey = formatDate(transaction.date);
 
@@ -62,8 +65,9 @@ export default {
       return groups;
     }, {});
 
-    // Convert grouped object into array of objects
-    const transactionsArray = Object.entries(grouped).map(([_date, data]) => data);
+    const transactionsArray = Object.entries(grouped).map(
+      ([_date, data]) => data
+    );
 
     return {
       income,
