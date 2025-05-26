@@ -1,18 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface NavCategoriesNavCategories extends Schema.Component {
-  collectionName: 'components_nav_categories_nav_categories';
-  info: {
-    displayName: 'Nav Categories';
-    description: '';
-  };
-  attributes: {
-    navItems: Attribute.Component<'nav-items.nav-items', true>;
-    categoryName: Attribute.String;
-    navItem: Attribute.Component<'nav-items.nav-items'>;
-  };
-}
-
 export interface SharedSeo extends Schema.Component {
   collectionName: 'components_shared_seos';
   info: {
@@ -61,6 +48,19 @@ export interface SharedMetaSocial extends Schema.Component {
         maxLength: 65;
       }>;
     image: Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface NavCategoriesNavCategories extends Schema.Component {
+  collectionName: 'components_nav_categories_nav_categories';
+  info: {
+    displayName: 'Nav Categories';
+    description: '';
+  };
+  attributes: {
+    navItems: Attribute.Component<'nav-items.nav-items', true>;
+    categoryName: Attribute.String;
+    navItem: Attribute.Component<'nav-items.nav-items'>;
   };
 }
 
@@ -590,9 +590,9 @@ export interface ArraysButton extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'nav-categories.nav-categories': NavCategoriesNavCategories;
       'shared.seo': SharedSeo;
       'shared.meta-social': SharedMetaSocial;
+      'nav-categories.nav-categories': NavCategoriesNavCategories;
       'nav-items.nav-items': NavItemsNavItems;
       'content-components.text-left-image-right': ContentComponentsTextLeftImageRight;
       'content-components.small-banner': ContentComponentsSmallBanner;
