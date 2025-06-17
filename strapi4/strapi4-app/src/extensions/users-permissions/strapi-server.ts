@@ -29,6 +29,10 @@ export default (plugin: any) => {
             user: userId,
           },
           {
+            name: "work",
+            user: userId,
+          },
+          {
             name: "social-life",
             user: userId,
           },
@@ -54,6 +58,10 @@ export default (plugin: any) => {
           },
           {
             name: "gift",
+            user: userId,
+          },
+          {
+            name: "bill-subscription",
             user: userId,
           },
           {
