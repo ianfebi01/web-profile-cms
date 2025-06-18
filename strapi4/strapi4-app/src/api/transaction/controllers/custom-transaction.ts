@@ -204,12 +204,15 @@ export default {
       return groups;
     }, {});
 
-    const result = Object.entries(grouped).map(
-      ([_id, values]) => values
+    const result = Object.entries(grouped).map(([_id, values]) => values);
+
+    const sorted = result.sort(
+      (a: CategoryTotal, b: CategoryTotal) => b.total - a.total
     );
 
-    const sorted = result.sort((a: CategoryTotal, b: CategoryTotal) => b.total - a.total)
-
-    return sorted;
+    return {
+      series: sorted.map((r: CategoryTotal) => r.total),
+      categories: sorted.map((r: CategoryTotal) => r.name),
+    };
   },
 };
