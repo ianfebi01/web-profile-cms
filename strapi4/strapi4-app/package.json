@@ -20,6 +20,7 @@
     "@strapi/provider-upload-aws-s3": "4.25.7",
     "@strapi/provider-upload-cloudinary": "^5.1.0",
     "@strapi/strapi": "4.25.7",
+    "date-fns-tz": "^3.2.0",
     "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
