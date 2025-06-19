@@ -1,15 +1,23 @@
+import { fromZonedTime, toZonedTime } from "date-fns-tz";
+import { startOfMonth, addMonths } from 'date-fns';
+
 export default {
   async monthly(ctx) {
     const user = ctx.state.user;
-    const { month, year } = ctx.query;
+    const { month, year, timezone } = ctx.query;
 
     if (!month || !year) {
       return ctx.badRequest("Month and year are required");
     }
+    if (!timezone) {
+      return ctx.badRequest("Timezone is required");
+    }
 
-    const startDate = new Date(`${year}-${month}-01`);
-    const endDate = new Date(startDate);
-    endDate.setMonth(startDate.getMonth() + 1);
+    const startDate = fromZonedTime(new Date(`${year}-${month}-01`), timezone);
+    const endDate = fromZonedTime(
+      new Date(`${year}-${Number(month) + 1}-01`),
+      timezone
+    );
 
     const transactions = await strapi.entityService.findMany(
       "api::transaction.transaction",
@@ -17,8 +25,8 @@ export default {
         filters: {
           user: { id: user.id },
           date: {
-            $gte: startDate.toISOString(),
-            $lt: endDate.toISOString(),
+            $gte: startDate,
+            $lt: endDate,
           },
         },
         sort: ["date:desc"],
@@ -38,14 +46,16 @@ export default {
       .filter((t) => t.type === "expense")
       .reduce((sum, t) => sum + t.amount, 0);
 
-    function formatDate(date) {
-      const d = new Date(date);
-      const day = String(d.getDate()).padStart(2, "0");
-      return `${day}`;
+    function formatDateToUserTimeZone(dateStr, timeZone) {
+      const utcDate = new Date(dateStr);
+      const zonedDate = toZonedTime(utcDate, timeZone);
+
+      const day = String(zonedDate.getDate()).padStart(2, "0");
+      return day;
     }
 
     const grouped = transactions.reduce((groups, transaction) => {
-      const dateKey = formatDate(transaction.date);
+      const dateKey = formatDateToUserTimeZone(transaction.date, timezone);
 
       if (!groups[dateKey]) {
         groups[dateKey] = {
@@ -76,10 +86,14 @@ export default {
   },
   async monthlyChart(ctx) {
     const user = ctx.state.user;
-    const { year } = ctx.query;
+    const { year, timezone } = ctx.query;
 
     if (!year) {
       return ctx.badRequest("Year is required");
+    }
+
+    if (!timezone) {
+      return ctx.badRequest("Timezone is required");
     }
 
     const monthNames = [
@@ -101,8 +115,13 @@ export default {
 
     const results = await Promise.all(
       allMonths.map(async (monthIndex) => {
-        const startDate = new Date(year, monthIndex, 1);
-        const endDate = new Date(year, monthIndex + 1, 1);
+      const localStart = startOfMonth(new Date(year, monthIndex, 1));
+      const localEnd = startOfMonth(addMonths(localStart, 1));
+
+      // Convert local times to UTC using provided timezone
+      const startDate = fromZonedTime(localStart, timezone);
+      const endDate = fromZonedTime(localEnd, timezone);
+
 
         const transactions = await strapi.entityService.findMany(
           "api::transaction.transaction",
@@ -110,8 +129,8 @@ export default {
             filters: {
               user: { id: user.id },
               date: {
-                $gte: startDate.toISOString(),
-                $lt: endDate.toISOString(),
+                $gte: startDate,
+                $lt: endDate,
               },
             },
           }
@@ -157,15 +176,20 @@ export default {
       total: number;
     };
     const user = ctx.state.user;
-    const { month, year } = ctx.query;
+    const { month, year, timezone } = ctx.query;
 
     if (!month || !year) {
       return ctx.badRequest("Month and year are required");
     }
+    if (!timezone) {
+      return ctx.badRequest("Timezone is required");
+    }
 
-    const startDate = new Date(`${year}-${month}-01`);
-    const endDate = new Date(startDate);
-    endDate.setMonth(startDate.getMonth() + 1);
+    const startDate = fromZonedTime(new Date(`${year}-${month}-01`), timezone);
+    const endDate = fromZonedTime(
+      new Date(`${year}-${Number(month) + 1}-01`),
+      timezone
+    );
 
     const expenses = await strapi.entityService.findMany(
       "api::transaction.transaction",
@@ -173,8 +197,8 @@ export default {
         filters: {
           user: { id: user.id },
           date: {
-            $gte: startDate.toISOString(),
-            $lt: endDate.toISOString(),
+            $gte: startDate,
+            $lt: endDate,
           },
           type: "expense",
         },
