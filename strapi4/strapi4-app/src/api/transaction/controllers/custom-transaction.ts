@@ -1,5 +1,5 @@
 import { fromZonedTime, toZonedTime } from "date-fns-tz";
-import { startOfMonth, addMonths } from 'date-fns';
+import { startOfYear, endOfYear, getMonth } from "date-fns";
 
 export default {
   async monthly(ctx) {
@@ -113,47 +113,87 @@ export default {
 
     const allMonths = Array.from({ length: 12 }, (_, i) => i); // 0 to 11
 
-    const results = await Promise.all(
-      allMonths.map(async (monthIndex) => {
-      const localStart = startOfMonth(new Date(year, monthIndex, 1));
-      const localEnd = startOfMonth(addMonths(localStart, 1));
+    // Get the UTC range of the whole year in that timezone
+    const localStart = startOfYear(new Date(Number(year), 0));
+    const localEnd = endOfYear(new Date(Number(year), 0));
 
-      // Convert local times to UTC using provided timezone
-      const startDate = fromZonedTime(localStart, timezone);
-      const endDate = fromZonedTime(localEnd, timezone);
+    const startDate = fromZonedTime(localStart, timezone);
+    const endDate = fromZonedTime(localEnd, timezone);
 
-
-        const transactions = await strapi.entityService.findMany(
-          "api::transaction.transaction",
-          {
-            filters: {
-              user: { id: user.id },
-              date: {
-                $gte: startDate,
-                $lt: endDate,
-              },
-            },
-          }
-        );
-
-        const income = transactions
-          .filter((t) => t.type === "income")
-          .reduce((sum, t) => sum + t.amount, 0);
-
-        const expense = transactions
-          .filter((t) => t.type === "expense")
-          .reduce((sum, t) => sum + t.amount, 0);
-
-        return {
-          monthIndex,
-          income,
-          expense,
-          hasData: income !== 0 || expense !== 0,
-        };
-      })
+    // Fetch all transactions of the year in 1 query
+    const transactions = await strapi.entityService.findMany(
+      "api::transaction.transaction",
+      {
+        filters: {
+          user: { id: user.id },
+          date: {
+            $gte: startDate,
+            $lte: endDate,
+          },
+        },
+      }
     );
 
-    const filtered = results.filter((r) => r.hasData);
+    // const results = await Promise.all(
+    //   allMonths.map(async (monthIndex) => {
+    //   const localStart = startOfMonth(new Date(year, monthIndex, 1));
+    //   const localEnd = startOfMonth(addMonths(localStart, 1));
+
+    //   // Convert local times to UTC using provided timezone
+    //   const startDate = fromZonedTime(localStart, timezone);
+    //   const endDate = fromZonedTime(localEnd, timezone);
+
+    //     const transactions = await strapi.entityService.findMany(
+    //       "api::transaction.transaction",
+    //       {
+    //         filters: {
+    //           user: { id: user.id },
+    //           date: {
+    //             $gte: startDate,
+    //             $lt: endDate,
+    //           },
+    //         },
+    //       }
+    //     );
+
+    //     const income = transactions
+    //       .filter((t) => t.type === "income")
+    //       .reduce((sum, t) => sum + t.amount, 0);
+
+    //     const expense = transactions
+    //       .filter((t) => t.type === "expense")
+    //       .reduce((sum, t) => sum + t.amount, 0);
+
+    //     return {
+    //       monthIndex,
+    //       income,
+    //       expense,
+    //       hasData: income !== 0 || expense !== 0,
+    //     };
+    //   })
+    // );
+
+    // Group per month based on timezone
+    const monthlyStats = Array.from({ length: 12 }, (_, i) => ({
+      monthIndex: i,
+      income: 0,
+      expense: 0,
+    }));
+
+    for (const tx of transactions) {
+      const localDate = toZonedTime(tx.date, timezone);
+      const monthIndex = getMonth(localDate); // 0-11
+
+      if (tx.type === "income") {
+        monthlyStats[monthIndex].income += tx.amount;
+      } else if (tx.type === "expense") {
+        monthlyStats[monthIndex].expense += tx.amount;
+      }
+    }
+
+    const filtered = monthlyStats.filter(
+      (r) => r.income !== 0 || r.expense !== 0
+    );
 
     return {
       series: [

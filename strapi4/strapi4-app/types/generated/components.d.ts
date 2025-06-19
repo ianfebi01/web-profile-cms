@@ -1,25 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface NavItemsNavItems extends Schema.Component {
-  collectionName: 'components_nav_items_nav_items';
-  info: {
-    displayName: 'Nav Items';
-    description: '';
-  };
-  attributes: {
-    name: Attribute.String;
-    page: Attribute.Relation<
-      'nav-items.nav-items',
-      'oneToOne',
-      'api::page.page'
-    >;
-    url: Attribute.String;
-    pageAnchor: Attribute.String;
-    description: Attribute.Text;
-    newTab: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
 export interface SharedSeo extends Schema.Component {
   collectionName: 'components_shared_seos';
   info: {
@@ -68,6 +48,26 @@ export interface SharedMetaSocial extends Schema.Component {
         maxLength: 65;
       }>;
     image: Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface NavItemsNavItems extends Schema.Component {
+  collectionName: 'components_nav_items_nav_items';
+  info: {
+    displayName: 'Nav Items';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    page: Attribute.Relation<
+      'nav-items.nav-items',
+      'oneToOne',
+      'api::page.page'
+    >;
+    url: Attribute.String;
+    pageAnchor: Attribute.String;
+    description: Attribute.Text;
+    newTab: Attribute.Boolean & Attribute.DefaultTo<false>;
   };
 }
 
@@ -311,61 +311,6 @@ export interface ContentComponentsAccordian extends Schema.Component {
   };
 }
 
-export interface BannerComponentsProfileBanner extends Schema.Component {
-  collectionName: 'components_banner_components_profile_banners';
-  info: {
-    displayName: 'profileBanner';
-    description: '';
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    bio: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor.CKEditor',
-        {
-          output: 'Markdown';
-          preset: 'standard';
-        }
-      >;
-    bannerImage: Attribute.Media<'images'> & Attribute.Required;
-    socials: Attribute.Relation<
-      'banner-components.profile-banner',
-      'oneToMany',
-      'api::social.social'
-    >;
-    avatar: Attribute.Media<'images'> & Attribute.Required;
-  };
-}
-
-export interface BannerComponentsCarousel extends Schema.Component {
-  collectionName: 'components_banner_components_carousels';
-  info: {
-    displayName: 'carousel';
-  };
-  attributes: {};
-}
-
-export interface BannerComponentsBannerStandard extends Schema.Component {
-  collectionName: 'components_banner_components_banner_standards';
-  info: {
-    displayName: 'bannerStandard';
-    description: '';
-  };
-  attributes: {
-    heading: Attribute.String;
-    background: Attribute.Media<'images' | 'videos'>;
-    buttons: Attribute.Component<'arrays.links', true>;
-    description: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor.CKEditor',
-        {
-          output: 'Markdown';
-          preset: 'standard';
-        }
-      >;
-  };
-}
-
 export interface CommonFieldsSectionSettings extends Schema.Component {
   collectionName: 'components_common_fields_section-settings';
   info: {
@@ -446,6 +391,61 @@ export interface CommonFieldsSectionSettings extends Schema.Component {
         'mb-24'
       ]
     >;
+  };
+}
+
+export interface BannerComponentsProfileBanner extends Schema.Component {
+  collectionName: 'components_banner_components_profile_banners';
+  info: {
+    displayName: 'profileBanner';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    bio: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
+    bannerImage: Attribute.Media<'images'> & Attribute.Required;
+    socials: Attribute.Relation<
+      'banner-components.profile-banner',
+      'oneToMany',
+      'api::social.social'
+    >;
+    avatar: Attribute.Media<'images'> & Attribute.Required;
+  };
+}
+
+export interface BannerComponentsCarousel extends Schema.Component {
+  collectionName: 'components_banner_components_carousels';
+  info: {
+    displayName: 'carousel';
+  };
+  attributes: {};
+}
+
+export interface BannerComponentsBannerStandard extends Schema.Component {
+  collectionName: 'components_banner_components_banner_standards';
+  info: {
+    displayName: 'bannerStandard';
+    description: '';
+  };
+  attributes: {
+    heading: Attribute.String;
+    background: Attribute.Media<'images' | 'videos'>;
+    buttons: Attribute.Component<'arrays.links', true>;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
   };
 }
 
@@ -590,9 +590,9 @@ export interface ArraysButton extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'nav-items.nav-items': NavItemsNavItems;
       'shared.seo': SharedSeo;
       'shared.meta-social': SharedMetaSocial;
+      'nav-items.nav-items': NavItemsNavItems;
       'nav-categories.nav-categories': NavCategoriesNavCategories;
       'content-components.text-left-image-right': ContentComponentsTextLeftImageRight;
       'content-components.small-banner': ContentComponentsSmallBanner;
@@ -612,10 +612,10 @@ declare module '@strapi/types' {
       'content-components.article-search': ContentComponentsArticleSearch;
       'content-components.arbitrary': ContentComponentsArbitrary;
       'content-components.accordian': ContentComponentsAccordian;
+      'common-fields.section-settings': CommonFieldsSectionSettings;
       'banner-components.profile-banner': BannerComponentsProfileBanner;
       'banner-components.carousel': BannerComponentsCarousel;
       'banner-components.banner-standard': BannerComponentsBannerStandard;
-      'common-fields.section-settings': CommonFieldsSectionSettings;
       'arrays.socials': ArraysSocials;
       'arrays.simple-card': ArraysSimpleCard;
       'arrays.links': ArraysLinks;
