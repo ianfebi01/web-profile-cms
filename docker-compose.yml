@@ -54,6 +54,7 @@ services:
     networks:
       - webhost
       - cms_int
+      - proxy
     restart: unless-stopped
 
   strapi_db:
@@ -89,6 +90,7 @@ services:
       MEILI_NO_ANALYTICS: "true"
     networks:
       - webhost
+      - proxy
     volumes:
       - meili_data_web_profile:/meili_data
     restart: unless-stopped
