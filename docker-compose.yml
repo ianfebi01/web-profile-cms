@@ -44,10 +44,6 @@ services:
       STRAPI_TELEMETRY_DISABLED: "true"
       STRAPI_DISABLE_REMOTE_DATA_TRANSFER: "true"
       BROWSER: "false"      
-      VIRTUAL_HOST: "content.ianfebisastrataruna.my.id"
-      VIRTUAL_PORT: "1337"
-      LETSENCRYPT_HOST: "content.ianfebisastrataruna.my.id"
-      LETSENCRYPT_EMAIL: "ianfebi01@gmail.com"
     volumes:
       - media:/opt/app/public/uploads
     networks:
@@ -83,11 +79,6 @@ services:
       MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
       MEILI_ENV: "production"
       MEILI_NO_ANALYTICS: "true"
-      VIRTUAL_HOST: "content.ianfebisastrataruna.my.id"
-      VIRTUAL_PORT: "7700"
-      LETSENCRYPT_HOST: "content.ianfebisastrataruna.my.id"
-      LETSENCRYPT_EMAIL: "ianfebi01@gmail.com"
-      VIRTUAL_PATH: "/search/api/"
     networks:
       - webhost
       - proxy
