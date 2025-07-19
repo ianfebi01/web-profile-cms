@@ -76,6 +76,7 @@ services:
     networks:
       - cms_int
       - database
+      - proxy
     restart: unless-stopped
     volumes:
       - cms_db_data:/var/lib/postgresql/data
@@ -141,6 +142,8 @@ networks:
     driver: bridge
   database:
     driver: bridge
+  proxy:
+    external: true
 
 volumes:
   wellknown:
