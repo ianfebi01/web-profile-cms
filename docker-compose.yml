@@ -19,8 +19,6 @@ services:
   strapi:
     build: strapi4
     user: strapi4:strapi4
-    depends_on:
-      - strapi_redis
     ports:
       - 1337:1337
     environment:
