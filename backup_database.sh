@@ -4,7 +4,7 @@
 VPS_USER="ianfebi01"
 VPS_IP="103.150.196.117"
 VPS_PATH="/home/ianfebi01/database.sql"
-LOCAL_PATH="/Users/ianfebi01/Documents/Kuliah/Web/web-profile-cms/database.sql"
+LOCAL_PATH="/Users/ianfebi01/Work/Web/web-profile-cms/database.sql"
 CONTAINER_NAME="web-profile-cms-strapi_db-1"
 DB_NAME="webprofilecms"
 DB_USER="postgres"

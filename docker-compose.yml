@@ -46,6 +46,11 @@ services:
       STRAPI_TELEMETRY_DISABLED: "true"
       STRAPI_DISABLE_REMOTE_DATA_TRANSFER: "true"
       BROWSER: "false"
+      VIRTUAL_HOST: "content.ianfebisastrataruna.my.id"
+      VIRTUAL_PORT: "7700"
+      LETSENCRYPT_HOST: "content.ianfebisastrataruna.my.id"
+      LETSENCRYPT_EMAIL: "ianfebi01@gmail.com"
+      VIRTUAL_PATH: "/search/api/"
     volumes:
       - media:/opt/app/public/uploads
     networks:
@@ -61,6 +66,10 @@ services:
       POSTGRES_USER: ${POSTGRES_ROOT_USER}
       POSTGRES_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
+      VIRTUAL_HOST: "content.ianfebisastrataruna.my.id"
+      VIRTUAL_PORT: "1337"
+      LETSENCRYPT_HOST: "content.ianfebisastrataruna.my.id"
+      LETSENCRYPT_EMAIL: "ianfebi01@gmail.com"
     # Only uncomment this to expose the database for direct access 
     # ports:
     #   - 5432:5432
@@ -70,30 +79,6 @@ services:
     restart: unless-stopped
     volumes:
       - cms_db_data:/var/lib/postgresql/data
-
-  strapi_redis:
-    image: redis:latest
-    networks:
-      - webhost
-    volumes:
-      - auth_redis_cache:/data
-
-  webhooks:
-    build: webhooks
-    depends_on:
-      - strapi
-    environment:
-      GITHUB_OWNER: ${GITHUB_USER}
-      GITHUB_REPO: ${GITHUB_REPO_FRONTEND}
-      GITHUB_TOKEN: ${GITHUB_TOKEN}
-    networks:
-      - cms_int
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '1.0'
-          memory: 500M
 
   meilisearch:
     image: getmeili/meilisearch:v1.8.4
@@ -161,10 +146,6 @@ volumes:
   wellknown:
     driver: local
   media:
-    driver: local
-  auth_redis_cache:
-    driver: local
-  strapi_redis_cache:
     driver: local
   cms_db_data:
     driver: local
